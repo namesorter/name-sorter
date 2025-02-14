@@ -5,7 +5,7 @@ namespace NameSorter.UnitTests
     [TestClass]
     public sealed class NamesWriterToFileTests
     {
-        const string filename = "filename";
+        const string Filename = "filename";
 
         [TestMethod]
         public void Given_writeAllLines_When_Write_Then_StringConcatEveryTime()
@@ -14,12 +14,12 @@ namespace NameSorter.UnitTests
 
             Mock<Action<string, IEnumerable<string>>> writeAllLines = new();
             writeAllLines
-                .Setup(w => w.Invoke(filename, It.IsAny<IEnumerable<string>>()))
+                .Setup(w => w.Invoke(Filename, It.IsAny<IEnumerable<string>>()))
                 .Callback<string, IEnumerable<string>>(
                     (_, c) => namesAsStrings = c.ToList());
 
             var writer = new NamesWriterToFile(
-                filename,
+                Filename,
                 Utilities.ToString,
                 writeAllLines.Object);
 
@@ -32,7 +32,7 @@ namespace NameSorter.UnitTests
             writer.Write(names);
 
             writeAllLines.Verify(w => w.Invoke(
-                filename,
+                Filename,
                 It.IsAny<IEnumerable<string>>()),
                 Times.Once);
 
@@ -55,13 +55,13 @@ namespace NameSorter.UnitTests
                 .Throws<DirectoryNotFoundException>();
 
             var writer = new NamesWriterToFile(
-                filename,
+                Filename,
                 Utilities.ToString,
                 writeAllLines.Object);
             var ex = Assert.ThrowsException<Exception>(() => writer.Write([]));
             
             Assert.IsNotNull(ex);
-            Assert.IsTrue(ex.Message.Contains($"writing names to {filename}"));
+            Assert.IsTrue(ex.Message.Contains($"writing names to {Filename}"));
         }
     }
 }

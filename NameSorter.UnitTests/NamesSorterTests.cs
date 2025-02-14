@@ -5,14 +5,14 @@ namespace NameSorter.UnitTests
     [TestClass]
     public sealed class NamesSorterTests
     {
-        const string inputFile = "inputFile";
+        const string InputFile = "inputFile";
 
         [TestMethod]
         public void Given_inputFile_When_ProcessFile_Then_HappyPath()
         {
             Mock<Func<string, string[]>> readAllLines = new();
             readAllLines
-                .Setup(r => r.Invoke(inputFile))
+                .Setup(r => r.Invoke(InputFile))
                 .Returns([
                     "Janet Parsons",
                     "Vaughn Lewis"
@@ -27,9 +27,9 @@ namespace NameSorter.UnitTests
                 readAllLines.Object,
                 namesComparison.Object,
                 writers);
-            sorter.ProcessFile(inputFile);
+            sorter.ProcessFile(InputFile);
 
-            readAllLines.Verify(g => g.Invoke(inputFile), Times.Once);
+            readAllLines.Verify(g => g.Invoke(InputFile), Times.Once);
             namesComparison.Verify(
                 s => s.Invoke(It.IsAny<Name>(), It.IsAny<Name>()), Times.Once);
             writer1.Verify(w => w.Write(It.IsAny<IEnumerable<Name>>()), Times.Once);
@@ -41,7 +41,7 @@ namespace NameSorter.UnitTests
         {
             Mock<Func<string, string[]>> readAllLines = new();
             readAllLines
-                .Setup(r => r.Invoke(inputFile))
+                .Setup(r => r.Invoke(InputFile))
                 .Returns([]);
 
             Mock<Comparison<Name>> namesComparison = new();
@@ -53,9 +53,9 @@ namespace NameSorter.UnitTests
                 readAllLines.Object,
                 namesComparison.Object,
                 writers);
-            sorter.ProcessFile(inputFile);
+            sorter.ProcessFile(InputFile);
 
-            readAllLines.Verify(g => g.Invoke(inputFile), Times.Once);
+            readAllLines.Verify(g => g.Invoke(InputFile), Times.Once);
             namesComparison.Verify(
                 s => s.Invoke(It.IsAny<Name>(), It.IsAny<Name>()), Times.Never);
             writer1.Verify(w => w.Write(It.IsAny<IEnumerable<Name>>()), Times.Once);
@@ -67,7 +67,7 @@ namespace NameSorter.UnitTests
         {
             Mock<Func<string, string[]>> readAllLines = new();
             readAllLines
-                .Setup(r => r.Invoke(inputFile))
+                .Setup(r => r.Invoke(InputFile))
                 .Throws<DirectoryNotFoundException>();
 
             Mock<Comparison<Name>> namesComparison = new();
@@ -81,11 +81,11 @@ namespace NameSorter.UnitTests
                 writers);
 
             var ex = Assert.ThrowsException<Exception>(
-                () => sorter.ProcessFile(inputFile));
+                () => sorter.ProcessFile(InputFile));
             Assert.IsNotNull(ex);
-            Assert.IsTrue(ex.Message.Contains($"reading names from {inputFile}"));
+            Assert.IsTrue(ex.Message.Contains($"reading names from {InputFile}"));
 
-            readAllLines.Verify(g => g.Invoke(inputFile), Times.Once);
+            readAllLines.Verify(g => g.Invoke(InputFile), Times.Once);
             namesComparison.Verify(
                 s => s.Invoke(It.IsAny<Name>(), It.IsAny<Name>()), Times.Never);
             writer1.Verify(w => w.Write(It.IsAny<IEnumerable<Name>>()), Times.Never);
