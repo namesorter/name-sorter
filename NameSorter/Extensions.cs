@@ -3,8 +3,7 @@
     public static class Extensions
     {
         /// <summary>
-        /// Validates <paramref name="s"/> and builds a <see cref="Name"/> based
-        /// on <paramref name="s"/>.
+        /// Builds a <see cref="Name"/> based on <paramref name="s"/>.
         /// </summary>
         /// <param name="s">The <see cref="string"/> from which to build a
         /// <see cref="Name"/>.</param>

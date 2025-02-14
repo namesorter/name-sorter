@@ -8,9 +8,8 @@
     /// <param name="toString">Convert a <see cref="Name"/> to a
     /// <see cref="string"/>. Allow for injecting something other than
     /// <see cref="Utilities.ToString(Name)"/>.</param>
-    /// <param name="writeAllLines">Writes <see cref="Name"/>s to
-    /// <paramref name="filename"/>. Can mock out <see cref="File"/> in unit
-    /// tests.</param>
+    /// <param name="writeAllLines">Writes <see cref="Name"/>s to a file. Can
+    /// mock out <see cref="File"/> in unit tests.</param>
     public class NamesWriterToFile(
         string filename,
         Func<Name, string>? toString = null,
