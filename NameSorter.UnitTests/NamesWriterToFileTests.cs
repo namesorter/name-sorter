@@ -8,7 +8,7 @@ namespace NameSorter.UnitTests
         const string Filename = "filename";
 
         [TestMethod]
-        public void Given_writeAllLines_When_Write_Then_StringConcatEveryTime()
+        public void Given_ListOfNames_When_Write_Then_StringConcatEveryTime()
         {
             List<string> namesAsStrings = [];
 

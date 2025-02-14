@@ -6,7 +6,7 @@ namespace NameSorter.UnitTests
     public sealed class NamesWriterToConsoleTests
     {
         [TestMethod]
-        public void Given_writeLine_When_Write_Then_writeLineCalledEveryTime()
+        public void Given_ListOfNames_When_Write_Then_writeLineCalledEveryTime()
         {
             Mock<Action<string>> writeLine = new();
             var writer = new NamesWriterToConsole(Utilities.ToString, writeLine.Object);
